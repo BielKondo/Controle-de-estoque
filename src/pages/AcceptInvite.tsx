@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Package2, Lock, Eye, EyeOff, User, Building2, CheckCircle2, Loader2, AlertCircle } from 'lucide-react';
+import { Package2, Lock, Eye, EyeOff, Mail, Building2, CheckCircle2, Loader2, AlertCircle } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useT } from '../lib/i18n';
 import type { Session } from '@supabase/supabase-js';
@@ -11,7 +11,7 @@ export function AcceptInvite() {
 
   const [session, setSession] = useState<Session | null>(null);
   const [checking, setChecking] = useState(true);
-  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
   const [companyId, setCompanyId] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
@@ -25,8 +25,8 @@ export function AcceptInvite() {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, s) => {
       if (s && !session) {
         setSession(s);
+        if (s.user.email) setEmail(s.user.email);
         const meta = s.user.user_metadata;
-        if (meta?.full_name) setFullName(meta.full_name as string);
         if (meta?.company_id) setCompanyId(meta.company_id as string);
         setChecking(false);
       }
@@ -35,8 +35,8 @@ export function AcceptInvite() {
     supabase.auth.getSession().then(({ data }) => {
       if (data.session) {
         setSession(data.session);
+        if (data.session.user.email) setEmail(data.session.user.email);
         const meta = data.session.user.user_metadata;
-        if (meta?.full_name) setFullName(meta.full_name as string);
         if (meta?.company_id) setCompanyId(meta.company_id as string);
       }
       setChecking(false);
@@ -53,16 +53,9 @@ export function AcceptInvite() {
     setLoading(true);
     setError(null);
 
-    const { error: err } = await supabase.auth.updateUser({
-      password,
-      data: { full_name: fullName },
-    });
+    const { error: err } = await supabase.auth.updateUser({ password });
 
     if (err) { setError(err.message); setLoading(false); return; }
-
-    if (session) {
-      await supabase.from('profiles').update({ full_name: fullName }).eq('id', session.user.id);
-    }
 
     setDone(true);
     setTimeout(() => navigate('/dashboard'), 2000);
@@ -145,16 +138,16 @@ export function AcceptInvite() {
                 </div>
               )}
 
-              {/* Full name */}
+              {/* Email (read-only, pre-filled from invite) */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-slate-700 dark:text-slate-300 text-sm font-semibold px-1">{t.inviteName}</label>
+                <label className="text-slate-700 dark:text-slate-300 text-sm font-semibold px-1">{t.workEmail}</label>
                 <div className="relative">
-                  <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                   <input
-                    type="text"
-                    value={fullName}
-                    onChange={e => setFullName(e.target.value)}
-                    placeholder="João Silva"
+                    type="email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    placeholder="nome@empresa.com"
                     required
                     className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 py-3.5 pl-11 pr-4 text-slate-900 dark:text-white placeholder-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                   />
