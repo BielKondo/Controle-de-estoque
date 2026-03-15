@@ -79,12 +79,10 @@ export function UserManagement() {
     setInviting(true);
     setInviteError(null);
 
-    const { error } = await supabaseAdmin.auth.admin.createUser({
-      email: inviteEmail.trim(),
-      email_confirm: true,
-      password: Math.random().toString(36).slice(-10) + 'Aa1!',
-      user_metadata: { full_name: inviteName.trim() || inviteEmail.trim() },
-    });
+    const { error } = await supabaseAdmin.auth.admin.inviteUserByEmail(
+      inviteEmail.trim(),
+      { data: { full_name: inviteName.trim() || inviteEmail.trim() } }
+    );
 
     setInviting(false);
 
