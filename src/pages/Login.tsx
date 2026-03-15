@@ -17,7 +17,6 @@ export function Login() {
     setLoading(true);
     setError(null);
 
-    // Placeholder logic for auth - we'll refine this later with actual Supabase
     try {
       const { error } = await supabase.auth.signInWithPassword({
         email,
@@ -28,8 +27,6 @@ export function Login() {
       navigate('/');
     } catch (err: any) {
       setError(err.message || 'Failed to login');
-      // For demo purposes, we can navigate anyway to show the UI
-      navigate('/');
     } finally {
       setLoading(false);
     }

@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
+import { PrivateRoute } from './components/PrivateRoute';
 import { Dashboard } from './pages/Dashboard';
 import { Login } from './pages/Login';
 import { Scan } from './pages/Scan';
@@ -14,16 +15,18 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/scan" element={<Scan />} />
-          <Route path="/stock" element={<Stock />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/products/new" element={<AddProduct />} />
-          <Route path="/users" element={<UserManagement />} />
-          <Route path="/company" element={<Companies />} />
-          <Route path="/settings" element={<Settings />} />
+        <Route path="/login" element={<Login />} />
+        <Route element={<PrivateRoute />}>
+          <Route element={<Layout />}>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/scan" element={<Scan />} />
+            <Route path="/stock" element={<Stock />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/products/new" element={<AddProduct />} />
+            <Route path="/users" element={<UserManagement />} />
+            <Route path="/company" element={<Companies />} />
+            <Route path="/settings" element={<Settings />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
