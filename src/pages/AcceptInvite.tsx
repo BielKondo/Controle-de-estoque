@@ -21,28 +21,40 @@ export function AcceptInvite() {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    // Supabase automatically exchanges the token from the URL hash
+    let fallbackTimer: ReturnType<typeof setTimeout>;
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, s) => {
-      if (s && !session) {
+      clearTimeout(fallbackTimer);
+      if (s) {
         setSession(s);
         if (s.user.email) setEmail(s.user.email);
         const meta = s.user.user_metadata;
         if (meta?.company_id) setCompanyId(meta.company_id as string);
-        setChecking(false);
       }
+      setChecking(false);
     });
 
+    // If there's already a session (e.g. page refresh), use it immediately.
+    // Otherwise wait for onAuthStateChange to process the URL hash token.
+    // Supabase v2 processes the hash token asynchronously via onAuthStateChange,
+    // so we must NOT call setChecking(false) here when there's no session yet.
     supabase.auth.getSession().then(({ data }) => {
       if (data.session) {
         setSession(data.session);
         if (data.session.user.email) setEmail(data.session.user.email);
         const meta = data.session.user.user_metadata;
         if (meta?.company_id) setCompanyId(meta.company_id as string);
+        setChecking(false);
+      } else {
+        // No session yet — wait up to 6s for the hash token to be exchanged
+        fallbackTimer = setTimeout(() => setChecking(false), 6000);
       }
-      setChecking(false);
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      subscription.unsubscribe();
+      clearTimeout(fallbackTimer);
+    };
   }, []);
 
   async function handleSubmit(e: { preventDefault: () => void }) {
