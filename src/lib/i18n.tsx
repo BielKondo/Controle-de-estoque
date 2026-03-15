@@ -150,6 +150,19 @@ const translations = {
     signingIn: 'Signing in...',
     newPlatform: 'New to the platform?',
     contactSupport: 'Contact Support',
+
+    // Accept Invite
+    acceptInviteTitle: 'Set up your account',
+    acceptInviteDesc: 'Define your password to access the system',
+    yourCompanyId: 'Your Company ID',
+    yourCompanyIdNote: 'Use this ID on the login screen',
+    newPassword: 'New Password',
+    confirmPasswordLabel: 'Confirm Password',
+    passwordMismatch: 'Passwords do not match',
+    passwordTooShort: 'Password must be at least 6 characters',
+    saveAndEnter: 'Save and Sign In',
+    invalidInvite: 'Invalid or expired invite link.',
+    companyIdForInvite: 'Company ID (shown to user in email)',
   },
   pt: {
     // Nav / Layout
@@ -298,6 +311,19 @@ const translations = {
     signingIn: 'Entrando...',
     newPlatform: 'Novo na plataforma?',
     contactSupport: 'Contatar Suporte',
+
+    // Accept Invite
+    acceptInviteTitle: 'Configure sua conta',
+    acceptInviteDesc: 'Defina sua senha para acessar o sistema',
+    yourCompanyId: 'ID da sua Empresa',
+    yourCompanyIdNote: 'Use este ID na tela de login',
+    newPassword: 'Nova Senha',
+    confirmPasswordLabel: 'Confirmar Senha',
+    passwordMismatch: 'As senhas não coincidem',
+    passwordTooShort: 'A senha deve ter pelo menos 6 caracteres',
+    saveAndEnter: 'Salvar e Entrar',
+    invalidInvite: 'Link de convite inválido ou expirado.',
+    companyIdForInvite: 'ID da Empresa (será informado ao usuário)',
   },
 };
 

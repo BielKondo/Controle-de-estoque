@@ -29,6 +29,7 @@ export function UserManagement() {
   const [showInvite, setShowInvite] = useState(false);
   const [inviteEmail, setInviteEmail] = useState('');
   const [inviteName, setInviteName] = useState('');
+  const [inviteCompanyId, setInviteCompanyId] = useState('');
   const [inviting, setInviting] = useState(false);
   const [inviteSuccess, setInviteSuccess] = useState(false);
   const [inviteError, setInviteError] = useState<string | null>(null);
@@ -81,7 +82,13 @@ export function UserManagement() {
 
     const { error } = await supabaseAdmin.auth.admin.inviteUserByEmail(
       inviteEmail.trim(),
-      { data: { full_name: inviteName.trim() || inviteEmail.trim() } }
+      {
+        redirectTo: `${window.location.origin}/accept-invite`,
+        data: {
+          full_name: inviteName.trim() || inviteEmail.trim(),
+          company_id: inviteCompanyId.trim(),
+        },
+      }
     );
 
     setInviting(false);
@@ -94,6 +101,7 @@ export function UserManagement() {
     setInviteSuccess(true);
     setInviteEmail('');
     setInviteName('');
+    setInviteCompanyId('');
     setTimeout(() => {
       setInviteSuccess(false);
       setShowInvite(false);
@@ -200,6 +208,17 @@ export function UserManagement() {
                 required
                 className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/50 py-2.5 px-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
               />
+              <div className="flex flex-col gap-1">
+                <input
+                  type="text"
+                  value={inviteCompanyId}
+                  onChange={e => setInviteCompanyId(e.target.value)}
+                  placeholder={t.companyId}
+                  required
+                  className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/50 py-2.5 px-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                />
+                <p className="text-[11px] text-slate-400 px-1">{t.companyIdForInvite}</p>
+              </div>
               <button
                 type="submit"
                 disabled={inviting}

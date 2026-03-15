@@ -3,6 +3,7 @@ import { Layout } from './components/Layout';
 import { PrivateRoute } from './components/PrivateRoute';
 import { Dashboard } from './pages/Dashboard';
 import { Login } from './pages/Login';
+import { AcceptInvite } from './pages/AcceptInvite';
 import { Scan } from './pages/Scan';
 import { Stock } from './pages/Stock';
 import { Settings } from './pages/Settings';
@@ -16,6 +17,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/accept-invite" element={<AcceptInvite />} />
         <Route element={<PrivateRoute />}>
           <Route element={<Layout />}>
             <Route path="/" element={<Dashboard />} />
