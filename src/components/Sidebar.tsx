@@ -13,13 +13,13 @@ export function Sidebar({ open, onClose }: SidebarProps) {
   const location = useLocation();
 
   const navItems = [
-    { name: t.dashboard, path: '/', icon: LayoutDashboard },
+    { name: t.dashboard, path: '/dashboard', icon: LayoutDashboard },
     { name: t.scan, path: '/scan', icon: QrCode },
-    { name: t.stock, path: '/stock', icon: Package },
-    { name: t.products, path: '/products', icon: List },
-    { name: t.addProduct, path: '/products/new', icon: PackagePlus },
-    { name: t.company, path: '/company', icon: Building2 },
-    { name: t.userManagement, path: '/users', icon: Users },
+    { name: t.stock, path: '/stock-management', icon: Package },
+    { name: t.products, path: '/product-management', icon: List },
+    { name: t.addProduct, path: '/product-management/new', icon: PackagePlus },
+    { name: t.company, path: '/company-management', icon: Building2 },
+    { name: t.userManagement, path: '/user-management', icon: Users },
     { name: t.settings, path: '/settings', icon: SettingsIcon },
   ];
 

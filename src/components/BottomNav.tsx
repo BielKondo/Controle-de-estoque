@@ -9,9 +9,9 @@ export function BottomNav() {
   const location = useLocation();
 
   const navItems = [
-    { name: t.dashboard, path: '/', icon: LayoutDashboard },
+    { name: t.dashboard, path: '/dashboard', icon: LayoutDashboard },
     { name: t.scan, path: '/scan', icon: QrCode },
-    { name: 'Stock', path: '/stock', icon: Package },
+    { name: t.stock, path: '/stock-management', icon: Package },
     { name: t.settings, path: '/settings', icon: SettingsIcon },
   ];
 
@@ -19,8 +19,8 @@ export function BottomNav() {
     <>
       {/* Centered FAB for Scan */}
       <div className="fixed bottom-24 right-6 z-50">
-        <Link 
-          to="/scan" 
+        <Link
+          to="/scan"
           className="flex size-14 items-center justify-center rounded-full bg-primary text-white shadow-lg shadow-primary/40 hover:scale-105 transition-transform"
         >
           <ScanLine size={32} />

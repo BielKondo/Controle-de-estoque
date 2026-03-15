@@ -65,7 +65,7 @@ export function AcceptInvite() {
     }
 
     setDone(true);
-    setTimeout(() => navigate('/'), 2000);
+    setTimeout(() => navigate('/dashboard'), 2000);
   }
 
   /* ── Loading ── */

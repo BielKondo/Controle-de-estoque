@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { PrivateRoute } from './components/PrivateRoute';
 import { Dashboard } from './pages/Dashboard';
@@ -20,13 +20,14 @@ function App() {
         <Route path="/accept-invite" element={<AcceptInvite />} />
         <Route element={<PrivateRoute />}>
           <Route element={<Layout />}>
-            <Route path="/" element={<Dashboard />} />
+            <Route index element={<Navigate to="/dashboard" replace />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/scan" element={<Scan />} />
-            <Route path="/stock" element={<Stock />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/products/new" element={<AddProduct />} />
-            <Route path="/users" element={<UserManagement />} />
-            <Route path="/company" element={<Companies />} />
+            <Route path="/stock-management" element={<Stock />} />
+            <Route path="/product-management" element={<Products />} />
+            <Route path="/product-management/new" element={<AddProduct />} />
+            <Route path="/user-management" element={<UserManagement />} />
+            <Route path="/company-management" element={<Companies />} />
             <Route path="/settings" element={<Settings />} />
           </Route>
         </Route>

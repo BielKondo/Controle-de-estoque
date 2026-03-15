@@ -12,15 +12,15 @@ export function Layout() {
 
   const getTitle = () => {
     switch(location.pathname) {
-      case '/': return t.inventoryOverview;
+      case '/dashboard': return t.inventoryOverview;
       case '/scan': return t.scanCode;
-      case '/stock': return t.stock;
-      case '/products': return t.products;
-      case '/users': return t.userManagement;
-      case '/company': return t.companies;
-      case '/products/new': return t.addProduct;
+      case '/stock-management': return t.stock;
+      case '/product-management': return t.products;
+      case '/user-management': return t.userManagement;
+      case '/company-management': return t.companies;
+      case '/product-management/new': return t.addProduct;
       case '/settings': return t.settings;
-      default: return 'Inventory App';
+      default: return 'StockFlow';
     }
   };
 

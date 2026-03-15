@@ -101,7 +101,7 @@ export function Products() {
           {filtered.length} {t.products.toLowerCase()}
         </p>
         <button
-          onClick={() => navigate('/products/new')}
+          onClick={() => navigate('/product-management/new')}
           className="flex items-center gap-1.5 px-3 py-2 bg-primary text-white rounded-xl text-sm font-semibold hover:bg-primary/90 transition-colors"
         >
           <PackagePlus size={16} />
@@ -118,7 +118,7 @@ export function Products() {
           <p className="font-semibold text-slate-500">{t.noProducts}</p>
           <p className="text-sm text-slate-400">{products.length === 0 ? t.addFirst : t.noProductsDesc}</p>
           {products.length === 0 && (
-            <button onClick={() => navigate('/products/new')} className="mt-2 px-5 py-2.5 bg-primary text-white rounded-xl font-semibold text-sm">
+            <button onClick={() => navigate('/product-management/new')} className="mt-2 px-5 py-2.5 bg-primary text-white rounded-xl font-semibold text-sm">
               {t.addProduct}
             </button>
           )}
@@ -131,7 +131,7 @@ export function Products() {
             return (
               <div
                 key={p.id}
-                onClick={() => navigate(`/stock?code=${encodeURIComponent(p.sku)}`)}
+                onClick={() => navigate(`/stock-management?code=${encodeURIComponent(p.sku)}`)}
                 className="flex items-center gap-4 bg-white dark:bg-primary/10 p-4 rounded-xl border border-slate-200 dark:border-primary/20 shadow-sm cursor-pointer hover:border-primary/40 hover:shadow-md transition-all"
               >
                 {/* Icon */}

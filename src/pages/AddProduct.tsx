@@ -58,7 +58,7 @@ export function AddProduct() {
     }
 
     setSuccess(true);
-    setTimeout(() => navigate('/'), 1500);
+    setTimeout(() => navigate('/dashboard'), 1500);
   };
 
   if (success) return (

@@ -14,7 +14,7 @@ export function Scan() {
     if (isManual) return;
     const scanner = new Html5QrcodeScanner('reader', { qrbox: { width: 250, height: 250 }, fps: 10, supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA, Html5QrcodeScanType.SCAN_TYPE_FILE] }, false);
     scanner.render(
-      (decodedText: string) => { scanner.clear(); setTimeout(() => navigate(`/stock?code=${encodeURIComponent(decodedText)}`), 500); },
+      (decodedText: string) => { scanner.clear(); setTimeout(() => navigate(`/stock-management?code=${encodeURIComponent(decodedText)}`), 500); },
       () => {}
     );
     return () => { scanner.clear().catch(console.error); };
@@ -22,7 +22,7 @@ export function Scan() {
 
   const handleManualSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (manualCode.trim()) navigate(`/stock?code=${encodeURIComponent(manualCode.trim())}`);
+    if (manualCode.trim()) navigate(`/stock-management?code=${encodeURIComponent(manualCode.trim())}`);
   };
 
   return (

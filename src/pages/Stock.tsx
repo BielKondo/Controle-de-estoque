@@ -75,7 +75,7 @@ export function Stock() {
     });
     setSubmitting(false);
     if (insertError) { setError(insertError.message); return; }
-    navigate('/');
+    navigate('/dashboard');
   };
 
   if (loadingProduct) return (
